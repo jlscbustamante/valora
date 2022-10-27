@@ -132,7 +132,7 @@ class FicheroController extends Controller
      * @return \Illuminate\Http\Response
      */
     //public function destroy(Fichero $fichero)
-    public function destroy($type, $name)
+    public function destroy($name)
     {
     	//devuelve 404 si no es encontrado el registro
         $fichero = Fichero::where('name', '=', $name)->firstOrFail();
