@@ -23,9 +23,11 @@ class FicheroController extends Controller
             Storage::disk('public')->put('file4.txt', '');*/
         $ficheros = Fichero::where('status','=',1)->get();
         
-        $filas = count($ficheros);
+        $cont_filas = Fichero::where('status','=',1)->count();
         
-        if ($filas >0 ){
+        //$filas = count($ficheros);
+        
+        if ($cont_filas >0 ){
         	return json_encode($ficheros);
         }else{
         	return json_encode([]);
@@ -119,6 +121,8 @@ class FicheroController extends Controller
 	    $fichero->status = 2;
 	    $fichero->save();
 	    
+	    $fichero->delete();
+	    
 	    // Return Json Response
 	    return response()->json([
 	        'message' => "Se hizo la eliminacion lógica del fichero correctamente."
@@ -141,7 +145,7 @@ class FicheroController extends Controller
         $del_path = $fichero->path;
         
 	    // Delete fichero de la BD
-	    $fichero->delete();
+	    $fichero->forceDelete();
 	    
 	    
 	    //if(Storage::exists($fichero->path.'/'.$fichero->name)){
